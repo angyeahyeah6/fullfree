@@ -14,7 +14,4 @@ const styles = StyleSheet.create({
     containerStyle:{
         flex:1
     },
-    mapStyle: {
-        flex: 2
-    }
 });

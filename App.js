@@ -6,30 +6,15 @@ import Search from './components/search'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+const screenOptions = require('./components/screenOptions')
 
 export default function App() {
   const Tab = createBottomTabNavigator();
+  
   return ( 
     <NavigationContainer>
         <Tab.Navigator 
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconFoucus;
-            let iconPath;
-            if (route.name === 'Map') {
-              iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-              iconPath = require('./assets/map.png')
-            } 
-            else if(route.name === 'Search'){
-              iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-              iconPath = require('./assets/search.png')
-            }
-            return (
-            <View style={iconFoucus}>
-              <Image style={styles.iconStyle} source={iconPath}/>
-            </View>);
-          },
-        })}
+        screenOptions={screenOptions.screenOptions}
         tabBarOptions={{
           activeTintColor: "#004AAD",
           inactiveTintColor: 'gray',
@@ -51,7 +36,7 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   navigatorStyle:{
-    height:100,
+    height:90,
     alignItems: 'center',
     justifyContent: 'center',
     color: "#004AAD"
