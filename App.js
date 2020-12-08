@@ -2,11 +2,12 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View , Dimensions} from 'react-native';
 import GoogleMap from './components/map'
+import Home from './components/home'
 import Search from './components/search'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const screenOptions = require('./components/screenOptions')
+const screenOptions = require('./components/element/screenOptions')
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -20,7 +21,7 @@ export default function App() {
           inactiveTintColor: 'gray',
           style : styles.navigatorStyle
         }}>
-          <Tab.Screen name="Map" component={GoogleMap} />
+          <Tab.Screen name="Map" component={Home} />
           <Tab.Screen name="Search" component={Search} />
       </Tab.Navigator>
     </NavigationContainer>

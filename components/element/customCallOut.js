@@ -1,7 +1,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { StyleSheet, View } from 'react-native';
 
 const propTypes = {
@@ -31,15 +30,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   bubble: {
-    width: 140,
+    width: 200,
     flexDirection: 'row',
     alignSelf: 'flex-start',
-    backgroundColor: "rgba(255,255,255,0.7)",
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 6,
+    backgroundColor: "#F6B93B",
+    borderRadius: 10,
     borderColor: '#007a87',
     borderWidth: 0.5,
+    borderColor: "transparent"
   },
   amount: {
     flex: 1,
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderWidth: 16,
     borderColor: 'transparent',
-    borderTopColor: '"rgba(255,255,255,0.7)"',
+    borderTopColor: '#004AAD',
     alignSelf: 'center',
     marginTop: -32,
   },

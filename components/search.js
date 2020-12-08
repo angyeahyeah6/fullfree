@@ -1,6 +1,4 @@
 import React from 'react';
-import MapView from 'react-native-maps';
-import AppHeader from './header';
 import { StyleSheet, Text, View , Dimensions} from 'react-native';
 
 export default function Search() {

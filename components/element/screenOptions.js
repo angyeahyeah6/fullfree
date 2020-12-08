@@ -6,11 +6,11 @@ exports.screenOptions = ({ route }) => ({
       let iconPath;
       if (route.name === 'Map') {
         iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-        iconPath = require('../assets/map.png')
+        iconPath = require('../../assets/map.png')
       } 
       else if(route.name === 'Search'){
         iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-        iconPath = require('../assets/search.png')
+        iconPath = require('../../assets/search.png')
       }
       return (
       <View style={iconFoucus}>
