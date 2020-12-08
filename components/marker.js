@@ -15,13 +15,13 @@ export default function AppMarker({marker, index}) {
     return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
             <Image source={require("../assets/marker.png")} style = {styles.markerStyle}/>
-            <Callout
-            
-            tooltip
-                onPress={e => {Alert.alert('jump to food page');}}>
+            <Callout tooltip onPress={e => {Alert.alert('jump to food page');}}>
                 <CustomCallout>
-                    <Text style={styles.markerCallFontStyle}>{marker.amount}</Text> 
+                    <Text style={styles.markerCallFontStyle}>
+                         {marker.amount}
+                    </Text> 
                     <Image source={marker.image} style={styles.markerCallPicStyle}></Image>
+                    
                 </CustomCallout>
             </Callout>
         </MapView.Marker>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     markerCallFontStyle:{
         fontSize: 20,
         alignSelf:'center',
-        color:"white"
+        color:"black"
     },
     markerCallPicStyle:{
         flex: 1,
