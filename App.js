@@ -9,7 +9,7 @@ import Profile from './components/profile'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import PaymentSuccess from "./components/payment"
+import PaymentSuccess from "./components/element/payment"
 const screenOptions = require('./components/element/screenOptions')
 
 export default function App() {

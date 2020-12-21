@@ -16,7 +16,7 @@ export default function Home({navigation}) {
             )
         }
         else if(pageStatus == "foodBrowse"){
-            return(    
+            return(
                 <FoodBrowse sendDataToParent={sendDataToParent} navigation={navigation}/>
             )
         }

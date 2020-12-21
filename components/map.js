@@ -4,13 +4,14 @@ import AppHeader from './element/header';
 import { StyleSheet,  View, Dimensions, Text, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import AppMarker from './element/marker';
+
 const markers = require('../data/foodPostData').foodPosts
 
 export default function GoogleMap({sendDataToParent, navigation}) {
     return (
         <MapView showsUserLocation={true} zoomTapEnabled={false} style={styles.mapStyle}>
             <View style={styles.buttonContainerStyle}>
-                <Button buttonStyle={styles.buttonStyle}  title="View Restaurants" titleStyle={styles.titleStyle} 
+                <Button buttonStyle={styles.buttonStyle} titleStyle={styles.titleStyle} title="View Restaurants"  
                 onPress={() => sendDataToParent("foodBrowse")} />
                 {markers.map((marker, index) => {
                     return (
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     titleStyle:{
-        color: "black"
+        color: "black",
+        fontWeight: "bold"
     }
 });

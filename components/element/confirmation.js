@@ -3,45 +3,60 @@ import { StyleSheet, View, Dimensions, ScrollView, Image } from 'react-native';
 import { Card, CheckBox, ListItem, Button, Icon, Text } from 'react-native-elements'
 import FoodOrder from './foodOrder';
 const payment = require("../../data/foodPostData").foodPosts
-export default function Reservation({sendDataToParent, navigation}){
+export default function Confirmation({sendDataToParent}){
     const [needContainer, setNeed] = useState(false);
     return(
-        <View>
-            <ScrollView>
+        <ScrollView>
             <View>
                 <View style={styles.categoryTextContainerStyle}>
                     <Text style={styles.categoryTextStyle}>Product</Text>
                     <Text style={styles.categoryTextStyle}>Amount </Text>
                 </View>
             </View>
-            
-                {payment.map((pay) => {
-                    return(
-                        <FoodOrder pay={pay}/>
-                    )
-                })}
-                <CheckBox
-                containerStyle={styles.checkboxStyle}
-                title='Container'
-                checkedColor={"#F6C440"}
-                checked={needContainer}
-                onPress={() => setNeed(!needContainer)}
-                />
-                <View style={styles.buttonContainerStyle}>
-                    <View>
-                        <Button
-                        buttonStyle={styles.shoppingButtonStyle}
-                        title='Keep Shopping' onPress={() => navigation.navigate('Home')}
-                        titleStyle={{fontWeight:"bold"}}/> 
-                        <Button
-                        buttonStyle={styles.paymentButtonStyle}
-                        title='Check Out'
-                        titleStyle={{color:"#000000", fontWeight:"bold"}} 
-                        onPress={() => sendDataToParent("Confirmation")}/> 
-                     </View>
+            {payment.map((pay) => {
+                return(
+                    <FoodOrder pay={pay}/>
+                )
+            })}
+            <CheckBox
+            containerStyle={styles.checkboxStyle}
+            title='Container'
+            checkedColor={"#F6C440"}
+            checked={needContainer}
+            onPress={() => setNeed(!needContainer)}
+            />
+            <View style={styles.buttonContainerStyle}>
+                <View style={{alignSelf:"flex-end"}}>
+                    <Text style={styles.sumTextStyle}>Total</Text>
                 </View>
-            </ScrollView>
-        </View>
+                <View style={{flex:3, flexDirection: "row"}}>
+                    <View style={{flex:2}}>
+                        <Text style={styles.sumTextStyle}>Food</Text>
+                        <Text style={styles.sumTextStyle}>handling Fee</Text>
+                        <Text style={styles.sumTextStyle}>Container</Text>
+                    </View>
+                    <View style={{flex:1}}>
+                        <Text style={styles.sumTextStyle}>0</Text>
+                        <Text style={styles.sumTextStyle}>20</Text>
+                        <Text style={styles.sumTextStyle}>5</Text>
+                    </View>
+                </View>
+                <View style={styles.lineStyle}></View>
+                <View style={{flex:3, flexDirection: "row"}}>
+                    <View style={{flex:2}}>
+                        <Text style={styles.sumTextStyle}>Total</Text>
+                    </View>
+                    <View style={{flex:1}}>
+                        <Text style={styles.sumTextStyle}>25</Text>
+                    </View>
+                </View>
+                <Button
+                buttonStyle={styles.paymentButtonStyle}
+                title='Go To Payment'
+                titleStyle={{color:"#000000", fontWeight:"bold"}} 
+                onPress={() => sendDataToParent("Payment")}/>
+            </View>
+        </ScrollView>
     
     )
 }
