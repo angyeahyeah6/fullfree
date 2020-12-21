@@ -1,10 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View , Dimensions} from 'react-native';
-
-export default function Search() {
+import PaymentSuccess from "./payment"
+import AppHeader from './element/header';
+export default function Search({navigation}) {
     return (
+        
         <View style={styles.containerStyle}>
-            <Text>hihi</Text>
+            <AppHeader centerText = "payment"></AppHeader>
+            <PaymentSuccess navigation={navigation}/>
         </View>
     );
   }

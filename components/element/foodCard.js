@@ -1,35 +1,47 @@
-import React from 'react';
+import { TabRouter } from '@react-navigation/native';
+import React ,{ useState } from 'react';
 import { StyleSheet, Image, Text, View , Dimensions, ScrollView } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import {FlatListSlider} from 'react-native-flatlist-slider';
-export default function FoodCard({post}){
+import InputSpinner from "react-native-input-spinner";
+export default function FoodCard({post, index, navigation}){
+    const [count, setCount] = useState(0);
     return(
         <Card containerStyle={styles.cardStyle}>
             <View style={styles.cardTitleContainerStyle}>
                 <Card.Title style={styles.cardResStyle}>{post.restaurantName}</Card.Title>
                 <View style={{width: Dimensions.get("screen").width*0.05}}></View>
-                <Card.Title style={styles.cardFoodStyle}>{post.foodName}</Card.Title>
+                <View style={{flex:1 , alignItems:"flex-end"}}>
+                    <Button buttonStyle={styles.cardDetailButtonStyle} titleStyle={styles.cardDetailStyle} title="Detail" onPress={() => sendDataToParent("map")} />
+                </View>
+                {/* <Card.Title style={styles.cardFoodStyle}>{post.foodName}</Card.Title> */}
             </View>
             <View>
                 <FlatListSlider data={post.images} imageKey={'image'} />
             </View>
             <View style={styles.cardInfoContainerStyle}>
                 <View style={{flexDirection: "column"}}>
-                    <Text style={styles.cardInfoPriceStyle}> $ {post.originPrice} / per </Text>
-                    <Text style={styles.cardInfoDiscountPriceStyle}> $ {post.newPrice} / per</Text>
+                <InputSpinner value={count} color={"#40c5f4"} 
+                    buttonStyle={styles.orderPortionButtonStyle}
+                    max={2}
+                    min={0}
+                    colorMax={"grey"}
+                    colorMin={"grey"}
+                    style={styles.orderPortionStyle}/>
                 </View>
-                <View style={{width: Dimensions.get("screen").width*0.3}}></View>
+                <View style={{flex:1 , alignItems:"flex-end", paddingTop: 5}}>
                 <Button
                     buttonStyle={styles.orderButtonStyle}
-                    title='Order' />
+                    title='Order' onPress={() => navigation.navigate('OrderList')}/>
                 </View>
+            </View>
         </Card>
     )
 }
 const styles = StyleSheet.create({
     cardStyle:{
         flexDirection: 'column',
-        backgroundColor: '#FFECA3',
+        backgroundColor: '#F6C440',
         padding: 0,
         borderRadius:10,
         shadowColor: "rgba(0,0,0, 0.3)",
@@ -44,6 +56,16 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         fontSize: 30
     },
+    cardDetailButtonStyle:{
+        backgroundColor: "white",
+        alignSelf: "center",
+        borderRadius: 10
+    },
+    cardDetailStyle:{
+        color:"#000000",
+        fontWeight: 'bold',
+        marginHorizontal: 15
+    },
     cardFoodStyle:{
         fontSize: 15,
         marginTop: 10,
@@ -52,20 +74,20 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         padding: 12,
     },
-    cardInfoPriceStyle:{
-        fontSize: 20,
-        textDecorationLine:"line-through"
+    orderPortionStyle:{
+        backgroundColor: "white",
+        borderRadius:100,
+        height: 50
     },
-    cardInfoDiscountPriceStyle:{
-        color: "#EA5167",
-        fontSize: 20,
+    orderPortionButtonStyle:{
+        backgroundColor: "#000000",
     },
     orderButtonStyle:{
         alignSelf:"flex-end",
         borderRadius: 10,
         paddingVertical:10,
         paddingHorizontal: 25,
-        backgroundColor: "#004AAD",
+        backgroundColor: "#000000",
         color: "white"
     }
 });

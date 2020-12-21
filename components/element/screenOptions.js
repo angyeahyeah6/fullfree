@@ -2,15 +2,28 @@ import React from 'react';
 import { StyleSheet, Image, Text, View , Dimensions} from 'react-native';
 exports.screenOptions = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
+      const img_path="../../assets/"
       let iconFoucus;
       let iconPath;
-      if (route.name === 'Map') {
+      if (route.name === 'Home') {
         iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-        iconPath = require('../../assets/map.png')
+        iconPath = focused ? require(img_path + "yellow_map.png") : require(img_path + "black_map.png")
       } 
       else if(route.name === 'Search'){
         iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-        iconPath = require('../../assets/search.png')
+        iconPath = focused ? require(img_path + "yellow_search.png") : require(img_path + "black_search.png")
+      }
+      else if(route.name === 'OrderList'){
+        iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
+        iconPath = focused ? require(img_path + "yellow_orderlist.png") : require(img_path + "black_orderlist.png")
+      }
+      else if(route.name === 'Profile'){
+        iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
+        iconPath = focused ? require(img_path + "yellow_profile.png") : require(img_path + "black_profile.png")
+      }
+      else if(route.name === 'Supplier'){
+        iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
+        iconPath = focused ? require(img_path + "yellow_supplier.png") : require(img_path + "black_supplier.png")
       }
       return (
       <View style={iconFoucus}>
@@ -30,17 +43,13 @@ exports.screenOptions = ({ route }) => ({
       height:90,
       alignItems: 'center',
       justifyContent: 'center',
-      color: "#004AAD"
+      color: "#000000"
     },
     navigatorTopFocusStyle:{
       width: 50,
-      borderTopWidth: 2,
-      borderTopColor: '#F6B93B'
     },
     navigatorTopStyle:{
       width: 50,
-      borderTopWidth: 2,
-      borderTopColor: '#004AAD'
     },
     iconStyle:{
       height: 30,

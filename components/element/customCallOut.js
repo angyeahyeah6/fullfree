@@ -15,8 +15,14 @@ class CustomCallout extends React.Component {
         <View style={styles.bubble}>
           <View style={styles.amount}>{this.props.children}</View>
         </View>
-        <View style={styles.arrowBorder} />
-        <View style={styles.arrow} />
+        <View style={{
+          height: 50,
+          width: 100,
+          borderRightWidth: 3,
+          borderRadius: 1,
+          transform: [{ rotate: '-10deg'}]
+        }}>
+        </View>
       </View>
     );
   }
@@ -35,29 +41,29 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: "#F6B93B",
     borderRadius: 10,
-    borderColor: '#007a87',
+    borderColor: '#000000',
     borderWidth: 0.5,
     borderColor: "transparent"
   },
   amount: {
     flex: 1,
   },
-  arrow: {
-    backgroundColor: 'transparent',
-    borderWidth: 16,
-    borderColor: 'transparent',
-    borderTopColor: '#004AAD',
-    alignSelf: 'center',
-    marginTop: -32,
-  },
-  arrowBorder: {
-    backgroundColor: 'transparent',
-    borderWidth: 16,
-    borderColor: 'transparent',
-    borderTopColor: '"rgba(255,255,255,0.7)"',
-    alignSelf: 'center',
-    marginTop: -0.5,
-  },
+  // arrow: {
+  //   backgroundColor: 'transparent',
+  //   borderWidth: 16,
+  //   borderColor: 'transparent',
+  //   borderTopColor: '#000000',
+  //   alignSelf: 'center',
+  //   marginTop: -32,
+  // },
+  // arrowBorder: {
+  //   backgroundColor: 'transparent',
+  //   borderWidth: 16,
+  //   borderColor: 'transparent',
+  //   borderTopColor: '"rgba(255,255,255,0.7)"',
+  //   alignSelf: 'center',
+  //   marginTop: -0.5,
+  // },
 });
 
 export default CustomCallout;

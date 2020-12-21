@@ -6,7 +6,7 @@ import { Button } from 'react-native-elements';
 import AppMarker from './element/marker';
 const markers = require('../data/foodPostData').foodPosts
 
-export default function GoogleMap({sendDataToParent}) {
+export default function GoogleMap({sendDataToParent, navigation}) {
     return (
         <MapView showsUserLocation={true} zoomTapEnabled={false} style={styles.mapStyle}>
             <View style={styles.buttonContainerStyle}>
@@ -14,7 +14,7 @@ export default function GoogleMap({sendDataToParent}) {
                 onPress={() => sendDataToParent("foodBrowse")} />
                 {markers.map((marker, index) => {
                     return (
-                    <AppMarker marker={marker} index={index}/>
+                    <AppMarker marker={marker} index={index} sendDataToParent={sendDataToParent}/>
                     );
                 })}
             </View>

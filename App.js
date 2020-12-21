@@ -1,12 +1,15 @@
 // import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Image, Text, View , Dimensions} from 'react-native';
-import GoogleMap from './components/map'
+import { StyleSheet } from 'react-native';
 import Home from './components/home'
 import Search from './components/search'
+import OrderList from './components/orderList'
+import Supplier from './components/supplier'
+import Profile from './components/profile'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import PaymentSuccess from "./components/payment"
 const screenOptions = require('./components/element/screenOptions')
 
 export default function App() {
@@ -17,12 +20,16 @@ export default function App() {
         <Tab.Navigator 
         screenOptions={screenOptions.screenOptions}
         tabBarOptions={{
-          activeTintColor: "#004AAD",
-          inactiveTintColor: 'gray',
+          activeTintColor: "#F6B93B",
+          inactiveTintColor: "#000000",
           style : styles.navigatorStyle
         }}>
-          <Tab.Screen name="Map" component={Home} />
+           <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="OrderList" component={OrderList} />
+          <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Search" component={Search} />
+          <Tab.Screen name="Supplier" component={Supplier} />
+          
       </Tab.Navigator>
     </NavigationContainer>
   );

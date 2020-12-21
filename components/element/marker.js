@@ -11,11 +11,11 @@ import {
 import CustomCallout from './customCallOut'
 
 
-export default function AppMarker({marker, index}) {
+export default function AppMarker({marker, index, sendDataToParent}) {
     return (
         <MapView.Marker key={index} coordinate={marker.coordinate}>
             <Image source={require("../../assets/marker.png")} style = {styles.markerStyle}/>
-            <Callout tooltip onPress={e => {Alert.alert('jump to food page');}}>
+            <Callout tooltip onPress={e => {sendDataToParent("foodBrowse")}}>
                 <CustomCallout>
                     <View style={{padding: 10}}>
                         <Text style={styles.markerCallFontStyle}>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     },
     markerCallInfoStyle:{
         width: 100,
-        backgroundColor: "#004AAD",
+        backgroundColor: "#000000",
         flexDirection: "column",
         borderBottomRightRadius: 10,
     },
