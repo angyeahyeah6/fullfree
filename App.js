@@ -1,5 +1,5 @@
 // import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Home from './components/home'
 import Search from './components/search'
@@ -11,10 +11,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import PaymentSuccess from "./components/element/payment"
 const screenOptions = require('./components/element/screenOptions')
-
 export default function App() {
   const Tab = createBottomTabNavigator();
-  
+  const [supplierBarVisible, setVisible] = useState(true)
+  const sendVisibleToParent = (barVisible) => {
+    setVisible(barVisible)
+  };
   return ( 
     <NavigationContainer>
         <Tab.Navigator 
@@ -24,11 +26,13 @@ export default function App() {
           inactiveTintColor: "#000000",
           style : styles.navigatorStyle
         }}>
-           <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Profile" component={Profile} />
           <Tab.Screen name="OrderList" component={OrderList} />
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="Search" component={Search} />
-          <Tab.Screen name="Supplier" component={Supplier} />
+          <Tab.Screen name="Supplier" options={{tabBarVisible: supplierBarVisible}}>
+            {props => <Supplier sendVisibleToParent={sendVisibleToParent} />}
+          </Tab.Screen>
           
       </Tab.Navigator>
     </NavigationContainer>
