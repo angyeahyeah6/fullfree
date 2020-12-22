@@ -29,6 +29,7 @@ exports.screenOptions = ({ route }) => ({
       <View style={iconFoucus}>
         <Image style={styles.iconStyle} source={iconPath}/>
       </View>);
+      
     },
   })
   const styles = StyleSheet.create({
