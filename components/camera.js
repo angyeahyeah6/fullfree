@@ -1,6 +1,6 @@
 // import { RNCamera, FaceDetector } from 'react-native-camera';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import CameraPreview  from './cameraPreview';
 import { Button } from 'react-native-elements';
@@ -13,6 +13,7 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
     const [previewVisible, setPreviewVisible] = useState(false)
     const [capturedImage, setCapturedImage] = useState(null)
     const [cameraRef, setCameraRef] = useState(null)
+    const [nextDisabled, setDisable] = useState(true)
     useEffect(() => {
       (async () => {
         const { status } = await Camera.requestPermissionsAsync();
@@ -40,6 +41,9 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
       <View style={styles.container}>
         <View style={styles.stepContainerStyle}>
             <Text style={styles.stepTextStyle}>Take a picture of your food</Text>
+            <TouchableOpacity onPress={() => sendDataToParent("SupplierOrder")}>
+              <Image source={require("../assets/delete.png")} style={{width:30, height:30}} />
+            </TouchableOpacity>
         </View>
         <View style={styles.cameraContainerStyle}>
         <Camera style={styles.camera}
@@ -66,6 +70,7 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
                     console.log("photo", photo);
                     setPreviewVisible(true)
                     setCapturedImage(photo)
+                    setDisable(false)
                     console.log(capturedImage)
                     // navigation.navigate("Image",{"photo":photo});
                 }
@@ -88,7 +93,8 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
                     <Text styles={styles.pageTextStyle}> 1 of 3 Pages</Text>
                 </View>
                 <View>
-                    <Button buttonStyle={styles.yellowButtonStyle} titleStyle={styles.titleStyle} title="Next  >"/>   
+                    <Button buttonStyle={styles.yellowButtonStyle} titleStyle={styles.titleStyle} title="Next  >" disabled={nextDisabled} 
+                    onPress={() => sendDataToParent("Gallery")}/>   
                 </View>
             </View>
         </View>
@@ -107,7 +113,9 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
         height:"7%",
         backgroundColor:"white",
         padding: 10,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        flexDirection:"row",
+        justifyContent:"space-between"
     },
     stepTextStyle:{
         fontSize: 20,
@@ -180,7 +188,11 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
     pageTextStyle:{
         color:"grey",
         fontSize: 16,
-    }
+    },
+    titleStyle:{
+      color: "black",
+      fontWeight: 'bold'
+  }
   });
 
   

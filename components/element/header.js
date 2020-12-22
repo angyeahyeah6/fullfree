@@ -7,7 +7,7 @@ export default function AppHeader(centerText) {
         <Header
         backgroundColor="#FFF"
         placement="center"
-        leftComponent={<Image source={require("../../assets/figma.png")} style={styles.iconStyle} />}
+        leftComponent={<Image source={require("../../assets/logo.jpg")} style={styles.iconStyle} />}
         centerComponent={{text: centerText.centerText, style: styles.fontStyle}}
         containerStyle={styles.containerStyle}
         />
@@ -20,12 +20,12 @@ export default function AppHeader(centerText) {
       fontWeight:"bold"
   },
   containerStyle:{
-    height: 90
+    height: 100
   },
   iconStyle:{
     flex: 1,
-    height: 40,
-    width: 40,
+    height: 35,
+    width: 35,
     margin: 10
   }
 });

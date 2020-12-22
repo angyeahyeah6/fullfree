@@ -20,7 +20,8 @@ var foodPosts = [
                 image: "https://tokyo-kitchen.icook.network/uploads/category/background/112/e2919e9cfb5832b5.jpg",
                 desc: "try"
             }
-        ]
+        ],
+        orderPeople:["Rebeca Liu", "Authur Huang"]
     },
     {
         index:1,

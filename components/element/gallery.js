@@ -30,7 +30,7 @@ export default function AppGallery({navigation, sendVisibleToParent, sendDataToP
 
   renderDoneButton = (count, onSubmit) => {
     return (
-      <TouchableOpacity title={'Done'} onPress={() => sendDataToParent("Map")}>
+      <TouchableOpacity title={'Done'} onPress={() => sendDataToParent("Address")}>
         <Text style={styles.stepTextStyle} >Done</Text>
       </TouchableOpacity>
     )
