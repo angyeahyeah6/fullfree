@@ -17,12 +17,12 @@ export default function Profile({navigation, order}){
             )
         }
         else if(pageStatus == "Reservation"){
-            return(
-                // <Confirmation pageStatus={pageStatus} sendDataToParent={sendDataToParent}></Confirmation>
-                //<Reservation sendDataToParent={sendDataToParent} navigation={navigation} order={order} needContainer={needContainer} setNeed={setNeed}></Reservation>
-                //<Reservation sendDataToParent={sendDataToParent} navigation={navigation} order={order}></Reservation>
-                navigation.navigate('Reservation')
-            )
+            // return(
+            //     // <Confirmation pageStatus={pageStatus} sendDataToParent={sendDataToParent}></Confirmation>
+            //     //<Reservation sendDataToParent={sendDataToParent} navigation={navigation} order={order} needContainer={needContainer} setNeed={setNeed}></Reservation>
+            //     //<Reservation sendDataToParent={sendDataToParent} navigation={navigation} order={order}></Reservation>
+            // )
+            navigation.navigate('OrderList')
         }
         else if(pageStatus == "Supplier"){
             navigation.navigate('Supplier');
