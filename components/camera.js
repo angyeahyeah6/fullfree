@@ -67,11 +67,10 @@ export default function AppCamera({navigation, sendVisibleToParent, sendDataToPa
                 if(cameraRef){
                     let photo = await cameraRef.takePictureAsync("photo");
                     MediaLibrary.saveToLibraryAsync(photo.uri)
-                    console.log("photo", photo);
                     setPreviewVisible(true)
                     setCapturedImage(photo)
                     setDisable(false)
-                    console.log(capturedImage)
+
                     // navigation.navigate("Image",{"photo":photo});
                 }
             }

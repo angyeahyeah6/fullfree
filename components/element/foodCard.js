@@ -4,12 +4,13 @@ import { StyleSheet, Image, Text, View , Dimensions, ScrollView } from 'react-na
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import {FlatListSlider} from 'react-native-flatlist-slider';
 import InputSpinner from "react-native-input-spinner";
-export default function FoodCard({post, index, navigation}){
+export default function FoodCard({post, index, navigation, order, setOrder}){
     const [count, setCount] = useState(0);
+    console.log(order)
     return(
         <Card containerStyle={styles.cardStyle}>
             <View style={styles.cardTitleContainerStyle}>
-                <Card.Title style={styles.cardResStyle}>{post.restaurantName}</Card.Title>
+                <Card.Title style={styles.cardResStyle}>{post.foodName}</Card.Title>
                 <View style={{width: Dimensions.get("screen").width*0.05}}></View>
                 <View style={{flex:1 , alignItems:"flex-end"}}>
                     <Button buttonStyle={styles.cardDetailButtonStyle} titleStyle={styles.cardDetailStyle} title="Detail" onPress={() => sendDataToParent("map")} />
@@ -27,12 +28,18 @@ export default function FoodCard({post, index, navigation}){
                     min={0}
                     colorMax={"grey"}
                     colorMin={"grey"}
-                    style={styles.orderPortionStyle}/>
+                    style={styles.orderPortionStyle}
+                    onChange={(num) => {
+                        setCount(num)
+                    }}/>
                 </View>
                 <View style={{flex:1 , alignItems:"flex-end", paddingTop: 5}}>
                 <Button
                     buttonStyle={styles.orderButtonStyle}
-                    title='Order' onPress={() => navigation.navigate('OrderList')}/>
+                    title='Reserve' onPress={() => {
+                        setOrder(order.concat([{foodName: post.foodName, amount: count, image: post.images[0].image, confirm: false}]));
+                        navigation.navigate('OrderList');
+                    }}/>
                 </View>
             </View>
         </Card>

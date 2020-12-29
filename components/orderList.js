@@ -6,7 +6,9 @@ import Reservation from './element/reservation';
 import Confirmation from './element/confirmation';
 import Payment from './element/payment';
 import PaymentSuccess from './element/paymentSuccess';
-export default function Orderlist({navigation}){
+import { useNavigation } from '@react-navigation/native';
+export default function Orderlist({order, setBannerVisible, setOrderToConfirm}){
+    const navigation = useNavigation();
     const [pageStatus, setPageStatus] = useState("Reservation");
     const [needContainer, setNeed] = useState(false);
     const sendDataToParent = (pgStatus) => {
@@ -16,12 +18,12 @@ export default function Orderlist({navigation}){
         if(pageStatus == "Reservation"){
             return(
                 // <Confirmation pageStatus={pageStatus} sendDataToParent={sendDataToParent}></Confirmation>
-                <Reservation sendDataToParent={sendDataToParent} navigation={navigation}></Reservation>
+                <Reservation sendDataToParent={sendDataToParent} navigation={navigation} order={order} needContainer={needContainer} setNeed={setNeed}></Reservation>
             )
         }
         else if(pageStatus == "Confirmation"){
             return(
-                <Confirmation sendDataToParent={sendDataToParent}></Confirmation>
+                <Confirmation sendDataToParent={sendDataToParent} order={order} needContainer={needContainer} setNeed={setNeed} ></Confirmation>
             )
         }
         else if(pageStatus == "Payment"){
@@ -31,7 +33,7 @@ export default function Orderlist({navigation}){
         }
         else if(pageStatus == "PaymentSuccess"){
             return(
-                <PaymentSuccess sendDataToParent={sendDataToParent} navigation={navigation}></PaymentSuccess>
+                <PaymentSuccess sendDataToParent={sendDataToParent} navigation={navigation} setBannerVisible={setBannerVisible} setOrderToConfirm={setOrderToConfirm} order={order}></PaymentSuccess>
             )
         }
     }

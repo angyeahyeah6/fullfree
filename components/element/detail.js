@@ -7,7 +7,12 @@ import { Input } from 'react-native-elements';
 import InputSpinner from "react-native-input-spinner";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Detail({navigation, sendVisibleToParent, sendDataToParent}){
+export default function Detail({navigation, sendVisibleToParent, sendDataToParent, singlePost, posts, setPost}){
+    const [filled, setFilled] = useState(
+        {description: "",
+        amount: 0,
+        foodName: "",
+        restaurantName:""})
     const [search, setSearch] = useState("")
     const [marker, setMarker] = useState(null)
     const [count, setCount] = useState(0);
@@ -19,10 +24,17 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
         {"name": "牛肉", "checked": false},
         {"name": "花生", "checked": false},
         {"name": "海鮮", "checked": false} ])
-    update_check = function(k, bValue){
+    const update_check = function(k, bValue){
         let tmpCheckList = checkList
         tmpCheckList[k] = {"name": checkList[k].name, "checked": bValue}
         setCheck(tmpCheckList)
+        forceUpdate();
+    }
+    const change_filled= function(name, value){
+        var tmp = filled;
+        tmp[name] = value;
+        setFilled(tmp);
+        console.log(filled);
         forceUpdate();
     }
     sendVisibleToParent(false)
@@ -38,9 +50,9 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
             <ScrollView>
                 <View style={styles.detailContainerStyle}>
                     <Text style={styles.titleStyle}>1. 食物名稱:</Text>
-                    <Input containerStyle={styles.inputStyle} />
+                    <Input onChangeText={text => change_filled("foodName",text)} containerStyle={styles.inputStyle} />
                     <Text style={styles.titleStyle}>2. 餐廳名稱:</Text>
-                    <Input containerStyle={styles.inputStyle} />
+                    <Input onChangeText={text => change_filled("restaurantName",text)} containerStyle={styles.inputStyle} />
                     <Text style={styles.titleStyle}>3. 食物份數:</Text>
                     <InputSpinner value={count} color={"#40c5f4"} 
                     buttonStyle={styles.orderPortionButtonStyle}
@@ -50,7 +62,10 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
                     colorMin={"grey"}
                     colorLeft={"#F6C440"}
                     colorRight={"#F6C440"}
-                    style={styles.orderPortionStyle}/>
+                    style={styles.orderPortionStyle}
+                    onChange={(num) => {
+                        change_filled("amount",num)
+                    }}/>
                     <Text style={styles.titleStyle}>3. 含有成份:</Text>
                     <Button buttonStyle={styles.yellowButtonStyle} titleStyle={styles.titleStyle} 
                     title="Add >" onPress={() => {setModalVisible(true);}} />   
@@ -85,7 +100,7 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
                     </Modal>
                     </View>
                     <Text style={styles.titleStyle}>5. 簡單描述一下食物:</Text>
-                    <Input containerStyle={styles.inputStyle} />
+                    <Input onChangeText={text => change_filled("description",text)} containerStyle={styles.inputStyle} />
                 </View>
             </ScrollView>
                 <View style={styles.footerContainerStyle}>
@@ -101,7 +116,11 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
                         <View>
                             <Button buttonStyle={styles.yellowButtonStyle} titleStyle={styles.titleStyle} 
                             title="Finished"
-                            onPress={() => sendDataToParent("SupplierOrder")}/>   
+                            onPress={async () => {
+                                    await setPost(posts.concat([{...singlePost, ...filled}]))
+                                    sendDataToParent("SupplierOrder");
+                                }
+                            }/>   
                         </View>
                     </View>
                 </View>

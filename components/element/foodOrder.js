@@ -5,13 +5,13 @@ export default function FoodOrder({pay}){
 return(
     <ScrollView>
     <View style={{flexDirection: "row", padding: 20}}>
-    <Image source={{uri: pay.images[0].image}} style={styles.cardPicStyle}/>
+    <Image source={{uri: pay.image}} style={styles.cardPicStyle}/>
     <View style={{flexDirection: "row"}}>
     <View style={styles.cardInfoContainerStyle}>
         <Text style={styles.cardInfoContainerTextStyle}> {pay.foodName}</Text>
     </View>
     <View style={styles.cardInfoContainerStyle}>
-        <Text style={styles.cardInfoContainerTextStyle}> 1</Text>
+        <Text style={styles.cardInfoContainerTextStyle}> {pay.amount}</Text>
     </View>
     </View>
     </View>

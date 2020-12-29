@@ -4,6 +4,8 @@ import MapView, { Marker, ProviderPropType } from 'react-native-maps';
 import { StyleSheet, View, Dimensions, ScrollView, Text, Image } from 'react-native';
 import { Button } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Geocoder from 'react-native-geocoding';
+
 
 function randomColor() {
     return `#${Math.floor(Math.random() * 16777215)
@@ -11,26 +13,69 @@ function randomColor() {
       .padStart(6, 0)}`;
   }
   
-export default function Address({navigation, sendVisibleToParent, sendDataToParent}){
+export default function Address({navigation, sendVisibleToParent, sendDataToParent, singlePost, setSinglePost}){
     const [search, setSearch] = useState("")
     const [marker, setMarker] = useState(null)
+    const [searchMarker, setSearchMarker] = useState([])
+    const api_key = "c3827273858236463c97aee5b3990493"
     sendVisibleToParent(false)
+    
     const updateSearch = function(s){
         setSearch(s)
+        return (fetch("http://api.positionstack.com/v1/forward?access_key=c3827273858236463c97aee5b3990493&query=" + search)
+        .then((response) => response.json()))
+        .then((json) => {
+            console.log(json.data.length);
+            if(json == null){
+                return [];
+            }
+            var tmp_markers = []
+            json.data.map((d, k) => {
+                tmp_markers.push({
+                    coordinate:{
+                        latitude: d.latitude,
+                        longitude: d.longitude,
+                    },
+                    addressName: d.label,
+                    key: k,
+                    color: randomColor()
+                })
+            }
+            )
+            setSearchMarker(tmp_markers);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     }
     const onMapPress= (e) =>  {
         setMarker({
             coordinate: e.nativeEvent.coordinate,
             key: 0,
-            color: randomColor(),
+            color: "red",
           },)
+          searchMarker.map((sm) => {
+              if(sm.coordinate.latitude == e.nativeEvent.coordinate.latitude && sm.coordinate.longitude == e.nativeEvent.coordinate.longitude){
+                setSearch(sm.addressName)
+              }
+          })
       };
-    const render_Marker = function(){
+    const render_tap_Marker = function(){
         if(marker != null){
             return(
                 <Marker key={marker.key} coordinate={marker.coordinate} pinColor={marker.color}/>
             )
-        }     
+        }
+    }
+    const render_Marker = function(){
+        return(
+            searchMarker.map((m, k) => {
+                return(
+                    <Marker key={k} coordinate={m.coordinate} pinColor={"black"}/>
+                )
+            })
+        )
+           
     }
     return(
             <View style={styles.containerStyle}>
@@ -48,13 +93,16 @@ export default function Address({navigation, sendVisibleToParent, sendDataToPare
                     round
                     searchIcon={{ size: 24 }}
                     onClear={(e) => setSearch("")}
-                />  
+                /> 
+                 
                 <MapView 
+                    followsUserLocation={true} 
                     showsUserLocation={true} 
                     zoomTapEnabled={false} 
                     style={styles.mapStyle} 
                     onPress={e => onMapPress(e)}>
                         {render_Marker()}
+                        {render_tap_Marker()}
                 </MapView>
             <View style={styles.footerContainerStyle}>
                 <View style={{justifyContent:"space-between", flexDirection:"row"}}>
@@ -67,7 +115,11 @@ export default function Address({navigation, sendVisibleToParent, sendDataToPare
                     </View>
                     <View>
                         <Button buttonStyle={styles.yellowButtonStyle} titleStyle={styles.titleStyle} title="Next  >"
-                        onPress={() => sendDataToParent("Detail")}/>   
+                        onPress={async () => {
+                            await setSinglePost({...singlePost, ...marker.coordinate})
+                            console.log(singlePost)
+                            sendDataToParent("Detail");
+                        }}/>   
                     </View>
                 </View>
             </View>

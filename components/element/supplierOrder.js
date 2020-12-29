@@ -3,8 +3,9 @@ import { StyleSheet, View, Dimensions, ScrollView, Image } from 'react-native';
 import { Card, CheckBox, ListItem, Button, Icon, Text } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import OrderCard from "./orderCard";
-const posts = require("../../data/foodPostData").foodPosts
-export default function SupplierOrder({navigation, sendVisibleToParent, sendDataToParent}){
+
+export default function SupplierOrder({posts, navigation, sendVisibleToParent, sendDataToParent, setPost, removePost}){
+    sendVisibleToParent(true)
     const [needContainer, setNeed] = useState(false);
     return(
         <View style={styles.containerStyle} >
@@ -17,9 +18,9 @@ export default function SupplierOrder({navigation, sendVisibleToParent, sendData
                 </View>
             </View> 
             <ScrollView>
-                {posts.map((p) => {
+                {posts.map((p, k) => {
                     return(
-                        <OrderCard post={p}/>
+                        <OrderCard post={p} index={k} sendDataToParent={sendDataToParent} removePost={removePost}/>
                     )
                 })}
             </ScrollView>

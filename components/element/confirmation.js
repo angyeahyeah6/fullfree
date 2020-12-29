@@ -1,19 +1,36 @@
 import React, {useState}from 'react';
 import { StyleSheet, View, Dimensions, ScrollView, Image } from 'react-native';
 import { Card, CheckBox, ListItem, Button, Icon, Text } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import FoodOrder from './foodOrder';
 const payment = require("../../data/foodPostData").foodPosts
-export default function Confirmation({sendDataToParent}){
-    const [needContainer, setNeed] = useState(false);
+export default function Confirmation({sendDataToParent, order, needContainer, setNeed}){
+    const renderContainermoney = function(){
+        if(needContainer){
+            return(
+                <Text style={styles.sumTextStyle}>5</Text>
+            )
+        }
+    }
+    const renderContainerTitle = function(){
+        if(needContainer){
+            return(
+                <Text style={styles.sumTextStyle}>Container</Text>
+            )
+        }
+    }
     return(
         <ScrollView>
+            <TouchableOpacity onPress={() => sendDataToParent("Reservation")}>
+                <Image source={require("../../assets/back.png")} style={styles.backButtonStyle}></Image>
+            </TouchableOpacity>
             <View>
                 <View style={styles.categoryTextContainerStyle}>
                     <Text style={styles.categoryTextStyle}>Product</Text>
                     <Text style={styles.categoryTextStyle}>Amount </Text>
                 </View>
             </View>
-            {payment.map((pay) => {
+            {order.map((pay) => {
                 return(
                     <FoodOrder pay={pay}/>
                 )
@@ -23,7 +40,6 @@ export default function Confirmation({sendDataToParent}){
             title='Container'
             checkedColor={"#F6C440"}
             checked={needContainer}
-            onPress={() => setNeed(!needContainer)}
             />
             <View style={styles.buttonContainerStyle}>
                 <View style={{alignSelf:"flex-end"}}>
@@ -33,12 +49,12 @@ export default function Confirmation({sendDataToParent}){
                     <View style={{flex:2}}>
                         <Text style={styles.sumTextStyle}>Food</Text>
                         <Text style={styles.sumTextStyle}>handling Fee</Text>
-                        <Text style={styles.sumTextStyle}>Container</Text>
+                        {renderContainerTitle()}
                     </View>
                     <View style={{flex:1}}>
                         <Text style={styles.sumTextStyle}>0</Text>
-                        <Text style={styles.sumTextStyle}>20</Text>
-                        <Text style={styles.sumTextStyle}>5</Text>
+                        <Text style={styles.sumTextStyle}>{10*order.length}</Text>
+                        {renderContainermoney()}
                     </View>
                 </View>
                 <View style={styles.lineStyle}></View>
@@ -47,7 +63,7 @@ export default function Confirmation({sendDataToParent}){
                         <Text style={styles.sumTextStyle}>Total</Text>
                     </View>
                     <View style={{flex:1}}>
-                        <Text style={styles.sumTextStyle}>25</Text>
+                        <Text style={styles.sumTextStyle}>{10*order.length + Number(needContainer)*5}</Text>
                     </View>
                 </View>
                 <Button
@@ -66,6 +82,11 @@ const styles = StyleSheet.create({
     },
     touchableStyle:{
         width: 30,
+    },
+    backButtonStyle:{
+        width: 30,
+        height: 30,
+        margin: 20
     },
     deleteStyle:{
         width: 30,

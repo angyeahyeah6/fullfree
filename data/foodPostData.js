@@ -1,6 +1,6 @@
 var foodPosts = [
     {
-        index: 0,
+        key: 0,
         coordinate: {
             latitude: 25.026154,
             longitude: 121.543422,
@@ -9,8 +9,6 @@ var foodPosts = [
         amount: 3,
         foodName: "pepporoni pizza",
         restaurantName: "Pizza House",
-        originPrice: 45,
-        newPrice: 25,
         images : [
             {
                 image: "https://doqvf81n9htmm.cloudfront.net/data/alicelee_126/201804/0416/54.jpg",
@@ -24,7 +22,7 @@ var foodPosts = [
         orderPeople:["Rebeca Liu", "Authur Huang"]
     },
     {
-        index:1,
+        key:1,
         coordinate: {
             latitude: 25.018908564268997,
             longitude: 121.53976848218413,
@@ -35,8 +33,6 @@ var foodPosts = [
         amount: 5,
         foodName: "kimchi pot",
         restaurantName: "Tofu house",
-        originPrice: 120,
-        newPrice: 100,
         images : [
             {
                 image: "https://images.japancentre.com/recipes/pics/241/main/photo_Korean-Style-Kimuchi-Nabe-Hot-Pot.jpg?1469572978",

@@ -2,7 +2,7 @@ import React ,{ useState, useReducer }from 'react';
 import { StyleSheet, View, Dimensions, ScrollView, Image, Modal } from 'react-native';
 import { Card, ListItem, Button, Icon, Text } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-export default function OrderCard({post}){
+export default function OrderCard({post, index, sendDataToParent, removePost}){
     const [iconPath, setPath] = useState(require("../../assets/expand_down.png"));
     const [showPeople, setShow] = useState(false)
     const [names, setNames] = useState([{"name":"Rebeca Liu"}, {"name":"Authur Hua"}])
@@ -18,9 +18,6 @@ export default function OrderCard({post}){
         if(showPeople == true){
             return(
                 <View style={{paddingHorizontal:20}}>
-                <View  style={styles.editContainerStyle}>
-                    <Text style={styles.titleStyle}> Edit </Text>
-                </View>
                 {names.map((p, k) => {
                     return(
                         <View style={styles.peopleContainerStyle}>
@@ -50,14 +47,19 @@ return(
         <Card containerStyle={styles.cardStyle}>
             <View style={{flexDirection:"row"}}>
             <Image source={{uri: post.images[0].image}} style={styles.cardPicStyle}/>
-            <View style={{padding:20, width:"55%"}}>
+            <View style={{padding:20, width:"50%"}}>
                 <Card.Title style={styles.cardTextStyle}>{post.foodName}</Card.Title>
             </View>
             <View>
                 <View style={{flex:1 , alignItems:"flex-end", justifyContent:"space-between"}}>
-                    <TouchableOpacity onPress={() => {setModalVisible(true);}}>
-                        <Image source={require("../../assets/delete.png")} style={styles.expandIconStyle}></Image>
-                    </TouchableOpacity>
+                    <View style={{flexDirection:"column"}}>
+                        <TouchableOpacity onPress={() => {setModalVisible(true);}}>
+                            <Image source={require("../../assets/trash.png")} style={styles.iconStyle}></Image>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => {sendDataToParent("Detail");}}>
+                            <Image source={require("../../assets/edit.png")} style={styles.iconStyle}></Image>
+                        </TouchableOpacity>
+                    </View>
                     <Modal
                     animationType="slide"
                     transparent={true}
@@ -71,21 +73,26 @@ return(
                             <Text style={{lineHeight: 30}}>*notice: if people have already ordered, you will have to pay back.</Text>                            
                             <View style={{flexDirection:"row", justifyContent:"center", marginTop:30}}>
                                 <Button buttonStyle={styles.yesButtonStyle} titleStyle={styles.whiteTitleStyle} 
-                                title="Yes" onPress={() => {setModalVisible(false);}} />   
+                                title="Yes" onPress={async () => {
+                                    await removePost(index);
+                                    setModalVisible(false);
+                                }} />   
                                 <Button buttonStyle={styles.NoButtonStyle} titleStyle={styles.titleStyle} 
                                 title="Cancel" onPress={() => {setModalVisible(false);}} />
                             </View>
                         </View>
                     </View>
                     </Modal>
-                    <TouchableOpacity onPress={() => {
-                        setShow(!showPeople);
-                        change_icon();}}>
-                        <Image source={iconPath} style={styles.expandIconStyle}></Image>
-                    </TouchableOpacity>
                 </View>
             </View>
                 {/* <Card.Title style={styles.cardFoodStyle}>{post.foodName}</Card.Title> */}
+            </View>
+            <View style={{alignItems:"center"}}>
+                <TouchableOpacity onPress={() => {
+                    setShow(!showPeople);
+                    change_icon();}}>
+                    <Image source={iconPath} style={styles.expandIconStyle}></Image>
+                </TouchableOpacity>
             </View>
             <View style={styles.cardInfoContainerStyle}>
             </View>
@@ -130,9 +137,15 @@ const styles = StyleSheet.create({
     modelText2Style:{
 
     },
+    iconStyle:{
+        width: 25,
+        height: 25,
+        margin: 10
+    },
     expandIconStyle:{
         width: 30,
-        height: 30
+        height: 30,
+        marginTop: 5
     },
     cardPicStyle:{
         width: 130,

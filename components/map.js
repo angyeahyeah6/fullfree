@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
 import AppHeader from './element/header';
 import { StyleSheet,  View, Dimensions, Text, Alert } from 'react-native';
@@ -6,10 +6,13 @@ import { Button } from 'react-native-elements';
 import AppMarker from './element/marker';
 
 const markers = require('../data/foodPostData').foodPosts
-
 export default function GoogleMap({sendDataToParent, navigation}) {
+    const [currentLocation, setLocation] = useState({})
     return (
-        <MapView showsUserLocation={true} zoomTapEnabled={false} style={styles.mapStyle}>
+        <MapView showsUserLocation={true} 
+            followsUserLocation={true} 
+            zoomTapEnabled={false} 
+            style={styles.mapStyle}>
             <View style={styles.buttonContainerStyle}>
                 <Button buttonStyle={styles.buttonStyle} titleStyle={styles.titleStyle} title="View Restaurants"  
                 onPress={() => sendDataToParent("foodBrowse")} />

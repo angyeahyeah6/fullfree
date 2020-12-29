@@ -1,49 +1,97 @@
 import React, {useState}from 'react';
 import { StyleSheet, View, Dimensions, ScrollView, Image } from 'react-native';
-import { Card, CheckBox, ListItem, Button, Icon, Text } from 'react-native-elements'
+import { Card, CheckBox, ListItem, Button, Icon, Text, Divider } from 'react-native-elements'
 import FoodOrder from './foodOrder';
+
 const payment = require("../../data/foodPostData").foodPosts
-export default function Reservation({sendDataToParent, navigation}){
-    const [needContainer, setNeed] = useState(false);
-    return(
-        <View>
-            <ScrollView>
+export default function Reservation({sendDataToParent, navigation, order, needContainer, setNeed}){
+    const _renderConfirm = function(){
+        return(
             <View>
-                <View style={styles.categoryTextContainerStyle}>
-                    <Text style={styles.categoryTextStyle}>Product</Text>
-                    <Text style={styles.categoryTextStyle}>Amount </Text>
-                </View>
+            <View style={{margin: 20}}>
+                <Text style={styles.categoryTextStyle}>Confirm Order</Text>
+                <Divider style={{ backgroundColor: 'black', height: 3 }} />
             </View>
-            
-                {payment.map((pay) => {
+            <View>
+            <View style={styles.categoryTextContainerStyle}>
+                <Text style={styles.categoryTextStyle}>Product</Text>
+                <Text style={styles.categoryTextStyle}>Amount </Text>
+            </View>
+        </View>
+        
+            {order.map((pay) => {
+                if(pay.confirm){
                     return(
                         <FoodOrder pay={pay}/>
                     )
-                })}
-                <CheckBox
-                containerStyle={styles.checkboxStyle}
-                title='Container'
-                checkedColor={"#F6C440"}
-                checked={needContainer}
-                onPress={() => setNeed(!needContainer)}
-                />
-                <View style={styles.buttonContainerStyle}>
-                    <View>
-                        <Button
-                        buttonStyle={styles.shoppingButtonStyle}
-                        title='Keep Shopping' onPress={() => navigation.navigate('Home')}
-                        titleStyle={{fontWeight:"bold"}}/> 
-                        <Button
-                        buttonStyle={styles.paymentButtonStyle}
-                        title='Check Out'
-                        titleStyle={{color:"#000000", fontWeight:"bold"}} 
-                        onPress={() => sendDataToParent("Confirmation")}/> 
-                     </View>
+                }
+            })}
+        </View>
+        )
+    }
+    if(order.length > 0){
+        return(
+            
+                <ScrollView>
+                {_renderConfirm()}
+                <View style={{margin: 20}}>
+                    <Text style={styles.categoryTextStyle}>Current Order</Text>
+                    <Divider style={{ backgroundColor: 'black', height: 3 }} />
                 </View>
+                <View>
+                    <View style={styles.categoryTextContainerStyle}>
+                        <Text style={styles.categoryTextStyle}>Product</Text>
+                        <Text style={styles.categoryTextStyle}>Amount </Text>
+                    </View>
+                </View>
+                
+                    {order.map((pay) => {
+                        if(!pay.confirm){
+                            return(
+                                <FoodOrder pay={pay}/>
+                            )
+                        }
+                    })}
+                    <CheckBox
+                    containerStyle={styles.checkboxStyle}
+                    title='Container'
+                    checkedColor={"#F6C440"}
+                    checked={needContainer}
+                    onPress={() => setNeed(!needContainer)}
+                    />
+                    <View style={styles.buttonContainerStyle}>
+                        <View>
+                            <Button
+                            buttonStyle={styles.shoppingButtonStyle}
+                            title='Keep Shopping' onPress={() => navigation.navigate('Home')}
+                            titleStyle={{fontWeight:"bold"}}/> 
+                            <Button
+                            buttonStyle={styles.paymentButtonStyle}
+                            title='Check Out'
+                            titleStyle={{color:"#000000", fontWeight:"bold"}} 
+                            onPress={() => sendDataToParent("Confirmation")}/> 
+                         </View>
+                    </View>
+                </ScrollView>
+        
+        )
+    }
+    else{
+        return(
+        <View>
+            <ScrollView>
+            <View style={styles.buttonContainerStyle}>
+                        <View>
+                            <Button
+                            buttonStyle={styles.shoppingButtonStyle}
+                            title='Keep Shopping' onPress={() => navigation.navigate('Home')}
+                            titleStyle={{fontWeight:"bold"}}/> 
+                         </View>
+                    </View>
             </ScrollView>
         </View>
-    
-    )
+        )
+    }
 }
 const styles = StyleSheet.create({
     containerStyle:{

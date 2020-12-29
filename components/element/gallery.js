@@ -1,25 +1,33 @@
-import React,{useState} from 'react';
+import React, { Component } from 'react';
 import { ImageBrowser } from 'expo-image-picker-multiple';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
-import * as ImageManipulator from 'expo-image-manipulator';
-export default function AppGallery({navigation, sendVisibleToParent, sendDataToParent}){
-  const [pickCount, setCount] = useState(0);
+import * as ImageManipulator from 'expo-image-manipulator'; 
+export default class AppGallery extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      localComponent:null};
+  }
+
   imagesCallback = (callback) => {
     callback.then(async (photos) => {
+      
       const cPhotos = [];
       for(let photo of photos) {
-        const pPhoto = await _processImageAsync(photo.uri);
+        const pPhoto = await this._processImageAsync(photo.uri);
         cPhotos.push({
-          uri: pPhoto.uri,
-          name: photo.filename,
-          type: 'image/jpg'
+          image: pPhoto.uri,
+          name: photo.filename
         })
       }
-      navigation.navigate('Main', {photos: cPhotos});
+      this.props.setSinglePost({...this.props.singlePost, images :cPhotos});
+      this.props.sendDataToParent("Address");
+      console.log(this.props.singlePost);
     })
     .catch((e) => console.log(e));
   };
-  _processImageAsync = async(uri) => {
+
+  async _processImageAsync(uri) {
     const file = await ImageManipulator.manipulateAsync(
       uri,
       [{resize: { width: 1000 }}],
@@ -28,12 +36,13 @@ export default function AppGallery({navigation, sendVisibleToParent, sendDataToP
     return file;
   };
 
-  renderDoneButton = (count, onSubmit) => {
-    return (
-      <TouchableOpacity title={'Done'} onPress={() => sendDataToParent("Address")}>
-        <Text style={styles.stepTextStyle} >Done</Text>
-      </TouchableOpacity>
-    )
+  _renderDoneButton = (count, onSubmit) => {
+    this.setState({
+      localComponent: 
+      <TouchableOpacity onPress={onSubmit} title={'Done'}>
+      <Text style={styles.stepTextStyle}>Done</Text>
+    </TouchableOpacity>
+    });
   }
 
   renderSelectedComponent = (number) => (
@@ -42,27 +51,25 @@ export default function AppGallery({navigation, sendVisibleToParent, sendDataToP
     </View>
   );
 
+  render() {
     const emptyStayComponent = <Text style={styles.emptyStay}>Empty =(</Text>;
-
-    return (
-      
-
-      
+    return(
       <View style={[styles.flex, styles.container]}>
         <View style={styles.stepContainerStyle}>
-            <Text style={styles.stepTextStyle}>Choose the photo to upload</Text>
-            {renderDoneButton()}
+        <Text style={styles.stepTextStyle}>Choose the photo to upload</Text>
+            {this.state.localComponent}
         </View>
         <ImageBrowser
           max={4}
-          onChange={renderDoneButton}
-          callback={imagesCallback}
-          renderSelectedComponent={renderSelectedComponent}
+          onChange={this._renderDoneButton}
+          callback={this.imagesCallback}
+          renderSelectedComponent={this.renderSelectedComponent}
           emptyStayComponent={emptyStayComponent}
         />
       </View>
-    );
-}
+    )
+  }
+};
 
 const styles = StyleSheet.create({
   flex: {

@@ -4,14 +4,15 @@ import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import FoodCard from './element/foodCard'
 import mainGrey from './css/style';
 const posts = require("../data/foodPostData").foodPosts
-export default function FoodPay({sendDataToParent, navigation}){
+export default function FoodBrowse({sendDataToParent, navigation, order, setOrder}){
+    console.log(navigation)
     return(
     <ScrollView>
         <View style={styles.buttonContainerStyle}>
             <Button buttonStyle={styles.buttonStyle}  title="View Map" titleStyle={styles.titleStyle} 
             onPress={() => sendDataToParent("map")} />
             {posts.map((p, index) => {
-                return ( <FoodCard post={p} index={index} navigation={navigation}/> );
+                return ( <FoodCard post={p} index={index} navigation={navigation} order={order} setOrder={setOrder}/> );
             })}
         </View>
     </ScrollView>
