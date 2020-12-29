@@ -36,7 +36,7 @@ export default function App() {
           style : styles.navigatorStyle,
           initialRouteName: "Home"
         }}>
-          <Tab.Screen name="Profile" component={Profile} />
+          <Tab.Screen name="Profile" component={Profile}/>
           <Tab.Screen name="OrderList" >
             {props => <OrderList order={order} setBannerVisible={setBannerVisible} setOrderToConfirm={setOrderToConfirm}/>}
           </Tab.Screen>
