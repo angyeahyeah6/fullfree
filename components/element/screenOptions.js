@@ -7,7 +7,7 @@ exports.screenOptions = ({ route }) => ({
       let iconPath;
       if (route.name === 'Home') {
         iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;
-        iconPath = focused ? require(img_path + "yellow_map.png") : require(img_path + "black_map.png")
+        iconPath = focused ? require(img_path + "yellow_home.png") : require(img_path + "black_home.png")
       } 
       else if(route.name === 'Search'){
         iconFoucus = focused ? styles.navigatorTopFocusStyle : styles.navigatorTopStyle;

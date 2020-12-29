@@ -80,7 +80,7 @@ export default function Address({navigation, sendVisibleToParent, sendDataToPare
     return(
             <View style={styles.containerStyle}>
                 <View style={styles.stepContainerStyle}>
-                    <Text style={styles.stepTextStyle}>Tap or Enter the place</Text>
+                    <Text style={styles.stepTextStyle}>Tap on map to add loction </Text>
                     <TouchableOpacity onPress={() => sendDataToParent("SupplierOrder")}>
                         <Image source={require("../../assets/delete.png")} style={{width:30, height:30}} />
                     </TouchableOpacity>

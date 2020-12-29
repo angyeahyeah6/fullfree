@@ -10,7 +10,7 @@ export default function SupplierOrder({posts, navigation, sendVisibleToParent, s
     return(
         <View style={styles.containerStyle} >
             <View style={styles.stepContainerStyle}>
-                <Text style={styles.stepTextStyle}>People who reserve the food</Text>
+                <Text style={styles.stepTextStyle}>My Food Post </Text>
                 <View style={{justifyContent:"flex-end"}}>
                     <TouchableOpacity onPress={() => sendDataToParent("Camera")}>
                         <Image source={require("../../assets/add.png")} style={{width:60, height:60}}></Image>
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     stepContainerStyle:{
         height:80,
         backgroundColor:"white",
-        padding: 15,
-        paddingHorizontal: 20,
+        padding: 20,
+        paddingHorizontal: 30,
         flexDirection:"row",
         justifyContent:"space-between"
     },

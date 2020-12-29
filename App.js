@@ -28,12 +28,13 @@ export default function App() {
   }
   return ( 
     <NavigationContainer>
-        <Tab.Navigator 
+        <Tab.Navigator initialRouteName="Home"
         screenOptions={screenOptions.screenOptions}
         tabBarOptions={{
           activeTintColor: "#F6B93B",
           inactiveTintColor: "#000000",
-          style : styles.navigatorStyle
+          style : styles.navigatorStyle,
+          initialRouteName: "Home"
         }}>
           <Tab.Screen name="Profile" component={Profile} />
           <Tab.Screen name="OrderList" >

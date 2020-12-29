@@ -42,7 +42,7 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
         
             <View style={styles.containerStyle}>
             <View style={styles.stepContainerStyle}>
-                <Text style={styles.stepTextStyle}>Fill out detail information of food</Text>
+                <Text style={styles.stepTextStyle}>Describe your food</Text>
                 <TouchableOpacity onPress={() => sendDataToParent("SupplierOrder")}>
                     <Image source={require("../../assets/delete.png")} style={{width:30, height:30}} />
                 </TouchableOpacity>
