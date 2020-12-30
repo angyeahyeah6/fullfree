@@ -22,8 +22,11 @@ export default function Confirmation({sendDataToParent, order, needContainer, se
     return(
         <ScrollView>
             <TouchableOpacity onPress={() => sendDataToParent("Reservation")}>
-                <Image source={require("../../assets/back.png")} style={styles.backButtonStyle}></Image>
-            </TouchableOpacity>
+                    <View style={{flexDirection:"row", marginHorizontal: 20, marginTop:20}}>
+                        <Image source={require("../../assets/back.png")} style={styles.backButtonStyle}></Image>
+                        <Text style={styles.backTextStyle}>Reservation</Text>
+                    </View>
+                </TouchableOpacity>
             <View>
                 <View style={styles.categoryTextContainerStyle}>
                     <Text style={styles.categoryTextStyle}>Product</Text>
@@ -142,5 +145,15 @@ const styles = StyleSheet.create({
         borderColor: "black", 
         borderWidth:1, 
         margin: 10
+    },
+    backButtonStyle:{
+        width: 25,
+        height: 25,
+    },
+    backTextStyle:{
+        fontWeight:"bold",
+        fontSize: 15,
+        textAlign: 'right',
+        margin:3
     }
 });
