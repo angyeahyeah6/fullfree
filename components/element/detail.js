@@ -56,7 +56,6 @@ export default function Detail({navigation, sendVisibleToParent, sendDataToParen
                     <Text style={styles.titleStyle}>3. 食物份數:</Text>
                     <InputSpinner value={count} color={"#40c5f4"} 
                     buttonStyle={styles.orderPortionButtonStyle}
-                    max={2}
                     min={0}
                     colorMax={"grey"}
                     colorMin={"grey"}

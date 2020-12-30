@@ -10,6 +10,12 @@ export default function SupplierOrder({posts, navigation, sendVisibleToParent, s
     return(
         <View style={styles.containerStyle} >
             <View style={styles.stepContainerStyle}>
+                <TouchableOpacity onPress={() => sendDataToParent("Profile")}>
+                    <View style={{flexDirection:"row"}}>
+                        <Image source={require("../../assets/back.png")} style={styles.backButtonStyle}></Image>
+                        <Text style={styles.backTextStyle}>Profile</Text>
+                    </View>
+                </TouchableOpacity>
                 <Text style={styles.stepTextStyle}>My Food Post </Text>
                 <View style={{justifyContent:"flex-end"}}>
                     <TouchableOpacity onPress={() => sendDataToParent("Camera")}>
@@ -103,4 +109,15 @@ const styles = StyleSheet.create({
         borderWidth:1, 
         margin: 10
     },
+    backButtonStyle:{
+        width: 20,
+        height: 20,
+        marginLeft: -20
+    },
+    backTextStyle:{
+        fontWeight:"bold",
+        fontSize: 13,
+        textAlign: 'right',
+        margin:3
+    }
 });

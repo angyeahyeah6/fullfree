@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View , Dimensions, ScrollView, FlatList, TouchableOpacity, Image,Modal,TouchableHighlight} from 'react-native';
 import { SearchBar,Card,Avatar, ListItem, Button } from 'react-native-elements';
 import {FlatListSlider} from 'react-native-flatlist-slider';
-
+import { useNavigation } from '@react-navigation/native';
 // import { CreditCardInput, LiteCreditCardInput } from "react-native-credit-card-input";
-export default function ProfileElement({sendDataToParent, navigation}) {
+export default function ProfileElement({sendDataToParent}) {
+    const navigation = useNavigation();
     const buttons = [
         {
             name: "My orders",
@@ -14,7 +15,7 @@ export default function ProfileElement({sendDataToParent, navigation}) {
         {
             name: "My posts",
             id: 2,
-            location: "Supplier"
+            location: "SupplierOrder"
         },
         {
             name: "Health Condition",
@@ -38,9 +39,9 @@ export default function ProfileElement({sendDataToParent, navigation}) {
         // Function for click on an item
         console.log(item);
         if (item == "Reservation") {
-            sendDataToParent("Reservation");
-        } else if (item == "Supplier"){
-            sendDataToParent("Supplier");
+            navigation.navigate("OrderList")
+        } else if (item == "SupplierOrder"){
+            sendDataToParent("SupplierOrder");
         } else if (item == "HealthForm"){
         }
     }

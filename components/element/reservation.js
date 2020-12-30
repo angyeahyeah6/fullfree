@@ -81,6 +81,7 @@ export default function Reservation({sendDataToParent, navigation, order, needCo
         <View>
             <ScrollView>
             <View style={styles.buttonContainerStyle}>
+            <Text style={styles.categoryTextStyle}>Nothing in the bucket list, Go look for some food !</Text>
                         <View>
                             <Button
                             buttonStyle={styles.shoppingButtonStyle}

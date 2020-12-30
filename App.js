@@ -4,8 +4,8 @@ import { StyleSheet } from 'react-native';
 import Home from './components/home'
 import Search from './components/search'
 import OrderList from './components/orderList'
-import Supplier from './components/supplier'
-import Profile from './components/profile'
+import Profile from './components/supplier'
+// import Profile from './components/profile'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -36,16 +36,15 @@ export default function App() {
           style : styles.navigatorStyle,
           initialRouteName: "Home"
         }}>
-          <Tab.Screen name="Profile" component={Profile}/>
-          <Tab.Screen name="OrderList" >
-            {props => <OrderList order={order} setBannerVisible={setBannerVisible} setOrderToConfirm={setOrderToConfirm}/>}
-          </Tab.Screen>
           <Tab.Screen name="Home"> 
             {props => <Home order={order} setOrder={setOrder} bannerVisible={bannerVisible} setBannerVisible={setBannerVisible}/>}
           </Tab.Screen>
+          <Tab.Screen name="OrderList" >
+            {props => <OrderList order={order} setBannerVisible={setBannerVisible} setOrderToConfirm={setOrderToConfirm}/>}
+          </Tab.Screen>
           <Tab.Screen name="Search" component={Search} />
-          <Tab.Screen name="Supplier" options={{tabBarVisible: supplierBarVisible}}>
-            {props => <Supplier sendVisibleToParent={sendVisibleToParent} />}
+          <Tab.Screen name="Profile" options={{tabBarVisible: supplierBarVisible}}>
+            {props => <Profile sendVisibleToParent={sendVisibleToParent} />}
           </Tab.Screen>
           
       </Tab.Navigator>

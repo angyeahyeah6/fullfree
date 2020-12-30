@@ -6,8 +6,10 @@ import AppCamera from './camera';
 import AppGallery from './element/gallery';
 import Detail from './element/detail';
 import SupplierOreder from './element/supplierOrder';
+import ProfileElement from './element/profileElement';
+
 export default function Supplier({navigation, sendVisibleToParent}){
-    const [pageStatus, setPageStatus] = useState("SupplierOrder");
+    const [pageStatus, setPageStatus] = useState("Profile");
     const [posts, setPost] = useState(require("../data/foodPostData").foodPosts)
     const [singlePost, setSinglePost] = useState({index: posts.length})
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
@@ -21,7 +23,12 @@ export default function Supplier({navigation, sendVisibleToParent}){
         forceUpdate();
     }
     const _renderComponent = function(){
-        if (pageStatus == "SupplierOrder"){
+        if(pageStatus == "Profile"){
+            return(
+                <ProfileElement sendDataToParent={sendDataToParent} />
+            )
+        }
+        else if (pageStatus == "SupplierOrder"){
             return(
                 <SupplierOreder posts={posts} 
                     navigation={navigation} 
@@ -67,9 +74,21 @@ export default function Supplier({navigation, sendVisibleToParent}){
             )
         }
     }
+    const _renderHearder = function(){
+        if(pageStatus == "Profile"){
+            return(
+                <AppHeader centerText="Profile"></AppHeader>
+            )
+        }
+        else{
+            return(
+                <AppHeader centerText="Share Food"></AppHeader>
+            )
+        }
+    }
     return(
         <View style={styles.containerStyle}>
-            <AppHeader centerText="Supplier"></AppHeader>
+            {_renderHearder()}
             {_renderComponent()}
         </View>
     )

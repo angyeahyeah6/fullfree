@@ -24,8 +24,8 @@ export default function Profile({navigation, order}){
             // )
             navigation.navigate('OrderList')
         }
-        else if(pageStatus == "Supplier"){
-            navigation.navigate('Supplier');
+        else if(pageStatus == "SupplierOrder"){
+            navigation.navigate('SupplierOrder');
         }
     }
     return(
